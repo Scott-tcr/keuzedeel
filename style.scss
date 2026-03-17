@@ -1,0 +1,127 @@
+// ----------------------------
+// VARIABELEN
+// ----------------------------
+$primary-color: #333;        // color
+$secondary-color: #444;      // color
+$light-color: #f4f4f4;       // color
+$padding-base: 20px;         // number
+$margin-large: 70px;         // number
+$font-main: Arial, sans-serif; // string
+$tablet: 768px;               // number
+$desktop: 1024px;             // number
+
+$padding-small: $padding-base / 2;
+$padding-big: $padding-base * 2;
+$gap: $padding-base - 5px;
+
+// ----------------------------
+// NAMESPACE
+// ----------------------------
+.layout {
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: $font-main;
+  }
+
+  body {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    min-height: 100vh;
+  }
+
+  // HEADER + NAV
+  header {
+    background: $primary-color;
+    color: white;
+    padding: $padding-base;
+
+    nav {
+      margin-top: $padding-small;
+
+      ul {
+        list-style: none;
+
+        @media (min-width: $tablet) {
+          display: flex;
+          gap: $gap;
+        }
+
+        li {
+          a {
+            color: white;
+            text-decoration: none;
+            padding: $padding-small;
+            display: block;
+
+            &:hover {
+              background: $secondary-color;
+            }
+          }
+        }
+      }
+
+      label {
+        display: none;
+        cursor: pointer;
+
+        &::before {
+          content: "☰";
+        }
+      }
+
+      input[type="checkbox"] {
+        display: none;
+
+        &:checked + label::before {
+          content: "✕";
+        }
+
+        &:checked ~ ul {
+          max-height: 300px;
+        }
+      }
+    }
+  }
+
+  // MAIN + ARTICLES
+  main {
+    padding: $padding-base;
+
+    .articles {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: $gap;
+      margin-top: $padding-base;
+
+      article {
+        background: $light-color;
+        padding: $padding-base;
+        border-radius: 5px;
+
+        &.highlight {
+          border: 2px solid $primary-color;
+        }
+      }
+
+      @media (min-width: $tablet) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      @media (min-width: $desktop) {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  }
+
+  // FOOTER
+  footer {
+    background: $primary-color;
+    color: white;
+    text-align: center;
+    padding: $padding-small;
+    margin-top: $margin-large;
+  }
+}
